@@ -97,25 +97,25 @@ int main()
         switch(pil)
         {
             case 1: 
-				push(mhs);
-				break;
+		push(mhs);
+		break;
             case 2: 
-				hapus();
+		hapus();
                 break;
             case 3: 
-				show (mhs);
+		show (mhs);
                 break;
             case 4:
-				bersih();
+		bersih();
                 break;
             case 5: 
-				sort (mhs);
-				break;
-			case 6:
-				find (mhs);
-				break;
-			case 7:
-				cout << "Terimakasih"; 
+		sort (mhs);
+		break;
+	    case 6:
+		find (mhs);
+		break;
+	    case 7:
+		cout << "Terimakasih"; 
 
         }
     getchar();
@@ -200,10 +200,9 @@ void sort(mahasiswa *mhs)
 		for(int i=0;i<=(t.atas-1);i++){
 			for(int j=0;j<=(t.atas-1);j++){
 				if((mhs + j)->ipk < (mhs+j+1)->ipk){
-				
 				temp = mhs[j];
-                mhs[j] = mhs[j+1];
-                mhs[j+1] = temp;
+                		mhs[j] = mhs[j+1];
+                		mhs[j+1] = temp;
 				}
 			}
 		}
@@ -233,22 +232,22 @@ void sort(mahasiswa *mhs)
 	cout<<"\nData sudah disortir menggunakan metode Insertion Sort";
 	}else if(jika==3)
 	{
-		// Selection sort
-		int maks;
-		for(int i=0; i<=t.atas; i++)
-		{	
-			maks = i;
-			for(int j=i+1; j<=t.atas; j++){
-				if( (mhs + maks)->ipk < (mhs + j)->ipk)
-				maks=j;
-			}
-			if((mhs + i)->ipk != (mhs + maks)->ipk)
-			{
-				temp = (mhs[i]);
+	// Selection sort
+	int maks;
+	for(int i=0; i<=t.atas; i++)
+	{	
+		maks = i;
+		for(int j=i+1; j<=t.atas; j++){
+		if( (mhs + maks)->ipk < (mhs + j)->ipk)
+		maks=j;
+		}
+		if((mhs + i)->ipk != (mhs + maks)->ipk)
+		{
+		temp = (mhs[i]);
                 mhs[i] = mhs[maks];
                 mhs[maks] = temp;
-			}			
-		}	
+		}			
+	}	
 	cout<<"\nData sudah disortir menggunakan metode Selection sort";			
 	}else{
 	cout<<"Input yang anda masukan tidak sesuai, silahkan di input ulang"<<endl;
@@ -260,14 +259,14 @@ void sort(mahasiswa *mhs)
 void ranking (mahasiswa *mhs)
 {
 	if(kosong()==0)
-    {
-		// Menampilkan data nama, nim, ipk Mahasiswa
-		for (int i=0; i<=t.atas; i++){
-			cout<<"Data nilai mahasiswa ke-"<<(i+1)<<endl;
-			cout <<"Nama Mahasiswa: "<< (mhs + i)->nama<<endl;
-			cout << "NIM: "<<(mhs + i)->nim<<endl;	
+    	{
+	// Menampilkan data nama, nim, ipk Mahasiswa
+	for (int i=0; i<=t.atas; i++){
+		cout<<"Data nilai mahasiswa ke-"<<(i+1)<<endl;
+		cout <<"Nama Mahasiswa: "<< (mhs + i)->nama<<endl;
+		cout << "NIM: "<<(mhs + i)->nim<<endl;	
     		cout<<"IPK : "<<(mhs + i)->ipk<<endl;	
-			cout<<endl;	
+		cout<<endl;	
 		}		
 	}else{
 		cout << "\nTumpukan kosong";
@@ -277,11 +276,11 @@ void ranking (mahasiswa *mhs)
 void show (mahasiswa *mhs)
 {
 	if(kosong()==0)
-    {
-		// Menampilkan data nama mahasiswa
-		cout <<"\nNama-nama Mahasiswa: "<< endl;	
-			for (int i=0;i<=t.atas;i++){
-			cout <<(i+1)<<". "<<(mhs + i)->nama<<endl;			
+	{
+	// Menampilkan data nama mahasiswa
+	cout <<"\nNama-nama Mahasiswa: "<< endl;	
+		for (int i=0;i<=t.atas;i++){
+		cout <<(i+1)<<". "<<(mhs + i)->nama<<endl;			
 		}
 	}
 	else
@@ -298,27 +297,27 @@ void find (mahasiswa *mhs)
 	float posisiipk;	
 	cout<<"\nMasukan data yang dicari: ";
 	cin>>cari;
-		int ketemu=0;
-		for(int i=0; i<=t.atas; i++){
-			if((mhs + i)->nama == cari)
-			{
+	int ketemu=0;
+	for(int i=0; i<=t.atas; i++){
+		if((mhs + i)->nama == cari)
+		{
 			ketemu = 1;
 			posisinama = (mhs + i)->nama;
 			posisinim = (mhs + i)->nim;
 			posisiipk = (mhs + i)->ipk;
 			i = t.atas;
-			}
 		}
-		if(ketemu == 0)
-		{
-		cout<<"Data Mahasiswa tidak ditemukan";
-		}
-		else
-		{
-		// Menampilkan nama,nim,ipk yang dicari
-		cout<<"\nMenampilkan data mahasiswa"<<endl<<endl;
-		cout <<"Nama Mahasiswa: "<< posisinama<<endl;
-		cout << "NIM: "<<posisinim<<endl;	
+	}
+	if(ketemu == 0)
+	{
+	cout<<"Data Mahasiswa tidak ditemukan";
+	}
+	else
+	{
+	// Menampilkan nama,nim,ipk yang dicari
+	cout<<"\nMenampilkan data mahasiswa"<<endl<<endl;
+	cout <<"Nama Mahasiswa: "<< posisinama<<endl;
+	cout << "NIM: "<<posisinim<<endl;	
     	cout<<"IPK : "<<posisiipk<<endl;
 	}
 }
