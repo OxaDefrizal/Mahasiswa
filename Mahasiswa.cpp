@@ -292,32 +292,39 @@ void show (mahasiswa *mhs)
 
 void find (mahasiswa *mhs)
 {	
-	// Mencari data mahasiswa dengan Sequential Search
-	string cari, posisinama,posisinim;
-	float posisiipk;	
-	cout<<"\nMasukan data yang dicari: ";
-	cin>>cari;
-	int ketemu=0;
-	for(int i=0; i<=t.atas; i++){
-		if((mhs + i)->nama == cari)
-		{
-			ketemu = 1;
-			posisinama = (mhs + i)->nama;
-			posisinim = (mhs + i)->nim;
-			posisiipk = (mhs + i)->ipk;
-			i = t.atas;
-		}
-	}
-	if(ketemu == 0)
+	if(kosong()==0)
 	{
-	cout<<"Data Mahasiswa tidak ditemukan";
+		// Mencari data mahasiswa dengan Sequential Search
+		string cari, posisinama,posisinim;
+		float posisiipk;	
+		cout<<"\nMasukan data yang dicari: ";
+		cin>>cari;
+		int ketemu=0;
+		for(int i=0; i<=t.atas; i++){
+			if((mhs + i)->nama == cari)
+			{
+				ketemu = 1;
+				posisinama = (mhs + i)->nama;
+				posisinim = (mhs + i)->nim;
+				posisiipk = (mhs + i)->ipk;
+				i = t.atas;
+			}
+		}
+		if(ketemu == 0)
+		{
+		cout<<"Data Mahasiswa tidak ditemukan";
+		}
+		else
+		{
+		// Menampilkan nama,nim,ipk yang dicari
+		cout<<"\nMenampilkan data mahasiswa"<<endl<<endl;
+		cout <<"Nama Mahasiswa: "<< posisinama<<endl;
+		cout << "NIM: "<<posisinim<<endl;	
+    	cout<<"IPK : "<<posisiipk<<endl;
+		}
 	}
 	else
 	{
-	// Menampilkan nama,nim,ipk yang dicari
-	cout<<"\nMenampilkan data mahasiswa"<<endl<<endl;
-	cout <<"Nama Mahasiswa: "<< posisinama<<endl;
-	cout << "NIM: "<<posisinim<<endl;	
-    	cout<<"IPK : "<<posisiipk<<endl;
+		cout << "\nTumpukan kosong";
 	}
 }
