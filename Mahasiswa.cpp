@@ -51,7 +51,7 @@ void remove(mahasiswa *mhs)					// void menghapus data terakhhir Mahasiswa
 {
     if(kosong(mhs)==0)
     {
-        cout << "\nData teratas sudah terambil";
+        cout << "\nData terakhir sudah terambil";
         mhs->atas--;
     }
     else
