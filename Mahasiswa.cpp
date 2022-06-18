@@ -8,65 +8,62 @@ struct mahasiswa
 	string nama;
 	string nim;
 	float ipk;
+	int atas;
 };
 
-struct tumpukan
+void awal(mahasiswa *mhs)
 {
-    int atas;
-    
-}t;
-
-void awal()
-{
-    t.atas=-1;
+    mhs->atas=-1;
 }
 
-int kosong()
+int kosong(mahasiswa *mhs)
 {
-    if (t.atas==-1)
+    if (mhs->atas==-1)
         return 1;
     else
         return 0;
 }
-int penuh()
+int penuh(mahasiswa *mhs)
 {
-    if (t.atas==max-1)
+    if (mhs->atas==max-1)
         return 1;
     else    
         return 0;
 }
 
-void nama(mahasiswa *mhs)
+void nama(mahasiswa *mhs)					// void input nama
 {
 	cout << "Inputkan Nama Mahasiswa: ";
 	cin.ignore();
 	getline(cin, mhs->nama);
 }
-void nim(mahasiswa *mhs)
+void nim(mahasiswa *mhs)					// void input nim
 {
 	cout << "Inputkan NIM Mahasiswa: ";
 	cin >> mhs->nim;
 	cout << endl;
 }
-float calculate(float *TOT,mahasiswa *mhs) 
+float calculate(float *TOT,mahasiswa *mhs) 	// void menghitung IPK
 { 	
 	return mhs->ipk=*TOT/5/25;	
 }
-void hapus()
+void remove(mahasiswa *mhs)					// void menghapus data terakhhir Mahasiswa	
 {
-    if(kosong()==0)
+    if(kosong(mhs)==0)
     {
         cout << "\nData teratas sudah terambil";
-        t.atas--;
+        mhs->atas--;
     }
     else
         cout << "\nData Kosong";
 }
-void bersih()
+void clear(mahasiswa *mhs)					// void menghapus semua data terakhhir Mahasiswa
 {
-    t.atas=-1;
-    cout<<"\ntumpukan kosong";
+    mhs->atas=-1;
+    cout<<"\nSemua data telah hapus";
 }
+// deklarasi fungsi back
+void back();
 // deklarasi fungsi input 
 void input(mahasiswa *mhs); 
 // deklarasi fungsi push
@@ -83,50 +80,52 @@ void find (mahasiswa *mhs);
 // Main Program 
 int main()
 {
-	
 	mahasiswa mhs[max];
 	int pil;
-    awal();
+    awal(mhs);
     do
     {	
 		// swicth case tampilan menu
-        cout << "1. Input\n2. Hapus\n3. Tampil\n4. ";
-        cout << "Bersihkan\n5. Sorting\n6. Mencari Data\n7. ";
-		cout << "Keluar\nMasukkan pilihan :";
+		cout << "--------Program Mahasiswa--------"<<endl<<endl;
+        cout << "1. Input data Mahasiswa\n2. Hapus data Mahasiswa\n3. Tampil data Mahasiswa\n4. ";
+        cout << "Bersihkan semua data Mahasiswa \n5. Mengurutkan Peringkat Mahasiswa \n6. Mencari Data Mahasiswa\n7. ";
+		cout << "Keluar Program Mahasiswa\n\nMasukkan pilihan :";
         cin >> pil;
         switch(pil)
         {
-            case 1: 
+            case 1: 	// swicth case Input data mahasiswa
 		push(mhs);
 		break;
-            case 2: 
-		hapus();
+            case 2: 	// swicth case Hapus data mahasiswa
+		remove(mhs);
                 break;
-            case 3: 
+            case 3: 	// swicth case Tampil data mahasiswa
 		show (mhs);
                 break;
-            case 4:
-		bersih();
+            case 4:		// swicth case Membersihkan semua data mahasiswa
+		clear(mhs);
                 break;
-            case 5: 
+            case 5: 	// swicth case Mengurutkan data Mahasiswa secara Descending
 		sort (mhs);
 		break;
-	    case 6:
-		find (mhs);
+	    	case 6:		// swicth case Mencari data Mahasiswa
+		find (mhs);		
 		break;
-	    case 7:
-		cout << "Terimakasih"; 
-
+	   		case 7:		// swicth case Keluar dari program
+		cout << "-----Terimakasih telah menggunakan program data Mahasiswa-----"; 
         }
-    getchar();
-    cout<<endl;
-    cout<<endl;  
+    getchar();			// meminimalisir error jika terdapat input selain int
+    cout<<endl<<endl;
     }
     while(pil!=7);
-	// ranking (mhs);
 	return 0;
 }
-
+void back()
+{
+	cin.ignore();
+	cout << "\ntekan entar untuk kembali ke menu";
+	cin.get();
+}
 void input(mahasiswa *mhs)
 {	
 	// Deklarasi variabel lokal
@@ -139,24 +138,24 @@ void input(mahasiswa *mhs)
 	float *nilai = new float[max*5];
 		// Input nama dan nim
 		cout<<endl;
-		cout << "Mahasiswa ke-" << (t.atas + 1) <<endl;
+		cout << "Mahasiswa ke-" << (mhs->atas + 1) <<endl;
 		total=0;
-		nama(mhs + t.atas);
-		nim(mhs + t.atas);
+		nama(mhs + mhs->atas);
+		nim(mhs + mhs->atas);
 		
 		for(int j=0; j<5; j++)
 		{
 			// input nilai Mata Kuliah Mahasiswa
 			cout << "Nilai Mata kuliah "<<matkul[j]<<": ";
-			cin>>*(nilai+(t.atas*5+j));
+			cin>>*(nilai+(mhs->atas*5+j));
 
 			// Menjumlahkan nilkai mata kuliah mahasiswa
-			total = total + nilai[(t.atas*5+j)];	
+			total = total + nilai[(mhs->atas*5+j)];	
 		}
-		tot[t.atas]=total; 
+		tot[mhs->atas]=total; 
 
 		// menghitung ipk mahasiswa
-		calculate(&tot[t.atas],(mhs + t.atas));
+		calculate(&tot[mhs->atas],(mhs + mhs->atas));
 
 	// bebaskan blok memori nilai mata kuliah yang dialokasikan
 	delete[] nilai;
@@ -165,27 +164,28 @@ void input(mahasiswa *mhs)
 void push(mahasiswa *mhs)
 {	
 	// jika variabel kosong sama dengan 1 atau true
-    if(kosong()==1)
+    if(kosong(mhs)==1)
     {
-        t.atas++;
+        mhs->atas++;
         input(mhs);
-        cout<<"\nData "<<(mhs + t.atas)->nama<<" Masuk ke stuck";
+        cout<<"\nData "<<(mhs + mhs->atas)->nama<<" Masuk ke stack";
     }
 	// jika variabel peuh sama dengan 0 atau false
-    else if (penuh()==0)
+    else if (penuh(mhs)==0)
     {
-        t.atas++;
+        mhs->atas++;
         input(mhs);
-        cout<<"\nData "<<(mhs + t.atas)->nama<<" Masuk ke stuck"; 
+        cout<<"\nData "<<(mhs + mhs->atas)->nama<<" Masuk ke stack"; 
     }
     else
-        cout<<"Tumpukan penuh";
+        cout<<"Data telah penuh";
 }
 
 void sort(mahasiswa *mhs)
 {
 	// Deklarasi Variabel loka
-	mahasiswa temp;
+	string tempnama, tempnim;
+	float sort;
 	int jika;
 	// tujuan dari label goto balik
 	balik:
@@ -197,12 +197,20 @@ void sort(mahasiswa *mhs)
 	if(jika==1)
 	{	
 		// Bubble Sort
-		for(int i=0;i<=(t.atas-1);i++){
-			for(int j=0;j<=(t.atas-1);j++){
+		for(int i=0;i<=mhs->atas;i++){
+			for(int j=0;j<=mhs->atas;j++){
 				if((mhs + j)->ipk < (mhs+j+1)->ipk){
-				temp = mhs[j];
-                		mhs[j] = mhs[j+1];
-                		mhs[j+1] = temp;
+					tempnama = (mhs + j)->nama;					// Proses selection Sort Nama
+                	(mhs + j)->nama = (mhs + j + 1)->nama;		
+                	(mhs + j + 1)->nama = tempnama;
+
+					tempnim = (mhs + j)->nim;					// Proses selection Sort NIM
+                	(mhs + j)->nim = (mhs + j + 1)->nim;
+                	(mhs + j + 1)->nim = tempnim;
+
+					sort = (mhs + j)->ipk;						// Proses selection Sort IPK
+                	(mhs + j)->ipk = (mhs + j + 1)->ipk;
+                	(mhs + j + 1)->ipk = sort;
 				}
 			}
 		}
@@ -210,19 +218,18 @@ void sort(mahasiswa *mhs)
 	}else if(jika==2)
 	{
 		// Insertion Sort
-		string tempnama, tempnim;
-		float sort;
+	
 		int loot;
-		for(int i=0; i<=t.atas; i++){
+		for(int i=0; i<=mhs->atas; i++){
 		sort = (mhs + i)->ipk;
 		tempnim = (mhs + i)->nim;
 		tempnama = (mhs + i)->nama;
 		loot = i-1;
 		while((mhs + loot)->ipk < sort && loot>=0)
 		{
-			(mhs + loot + 1)->ipk = (mhs + loot)->ipk; 
-			(mhs + loot + 1)->nim = (mhs + loot)->nim; 
-			(mhs + loot + 1)->nama = (mhs + loot)->nama; 
+			(mhs + loot + 1)->ipk = (mhs + loot)->ipk; 	// Proses selection Sort IPK
+			(mhs + loot + 1)->nim = (mhs + loot)->nim; 	// Proses selection Sort NIM
+			(mhs + loot + 1)->nama = (mhs + loot)->nama;// Proses selection Sort Nama
 			loot--;	
 		}
 		(mhs + loot + 1)->ipk = sort;
@@ -234,18 +241,26 @@ void sort(mahasiswa *mhs)
 	{
 	// Selection sort
 	int maks;
-	for(int i=0; i<=t.atas; i++)
+	for(int i=0; i<=mhs->atas; i++)
 	{	
 		maks = i;
-		for(int j=i+1; j<=t.atas; j++){
+		for(int j=i+1; j<=mhs->atas; j++){
 		if( (mhs + maks)->ipk < (mhs + j)->ipk)
 		maks=j;
 		}
-		if((mhs + i)->ipk != (mhs + maks)->ipk)
+			if((mhs + i)->ipk != (mhs + maks)->ipk)
 		{
-		temp = (mhs[i]);
-                mhs[i] = mhs[maks];
-                mhs[maks] = temp;
+			tempnama = (mhs + i)->nama;				// Proses selection Sort Nama
+            (mhs + i)->nama = (mhs + maks)->nama;
+            (mhs + maks)->nama = tempnama;
+
+			tempnim = (mhs + i)->nim;				// Proses selection Sort NIM
+            (mhs + i)->nim = (mhs + maks)->nim;		
+            (mhs + maks)->nim = tempnim;
+
+			sort = (mhs + i)->ipk;					// Proses selection Sort IPK
+            (mhs + i)->ipk = (mhs + maks)->ipk;
+            (mhs + maks)->ipk = sort;
 		}			
 	}	
 	cout<<"\nData sudah disortir menggunakan metode Selection sort";			
@@ -256,58 +271,44 @@ void sort(mahasiswa *mhs)
 	}
 }
 
-void ranking (mahasiswa *mhs)
-{
-	if(kosong()==0)
-    	{
-	// Menampilkan data nama, nim, ipk Mahasiswa
-	for (int i=0; i<=t.atas; i++){
-		cout<<"Data nilai mahasiswa ke-"<<(i+1)<<endl;
-		cout <<"Nama Mahasiswa: "<< (mhs + i)->nama<<endl;
-		cout << "NIM: "<<(mhs + i)->nim<<endl;	
-    		cout<<"IPK : "<<(mhs + i)->ipk<<endl;	
-		cout<<endl;	
-		}		
-	}else{
-		cout << "\nTumpukan kosong";
-	}
-}
-
 void show (mahasiswa *mhs)
 {
-	if(kosong()==0)
+	if(kosong(mhs)==0)
 	{
 	// Menampilkan data nama mahasiswa
-	cout <<"\nNama-nama Mahasiswa: "<< endl;	
-		for (int i=0;i<=t.atas;i++){
+	cout <<"\nDaftar data Mahasiswa"<< endl;
+	cout <<"-----------------------"<< endl;		
+		for (int i=0;i<=mhs->atas;i++){
 		cout <<(i+1)<<". "<<(mhs + i)->nama<<endl;			
 		}
+	cout <<"\n-----------------------"<< endl;
+	back();
 	}
 	else
 	{
-		cout << "\nTumpukan kosong";
+		cout << "\nData kosong";
 	}
         
 }
 
 void find (mahasiswa *mhs)
 {	
-	if(kosong()==0)
+	if(kosong(mhs)==0)
 	{
 		// Mencari data mahasiswa dengan Sequential Search
 		string cari, posisinama,posisinim;
 		float posisiipk;	
-		cout<<"\nMasukan data yang dicari: ";
+		cout<<"\nMasukan nama Mahasiswa yang ingin dicari: ";
 		cin>>cari;
 		int ketemu=0;
-		for(int i=0; i<=t.atas; i++){
+		for(int i=0; i<=mhs->atas; i++){
 			if((mhs + i)->nama == cari)
 			{
 				ketemu = 1;
 				posisinama = (mhs + i)->nama;
 				posisinim = (mhs + i)->nim;
 				posisiipk = (mhs + i)->ipk;
-				i = t.atas;
+				i = mhs->atas;
 			}
 		}
 		if(ketemu == 0)
@@ -317,10 +318,11 @@ void find (mahasiswa *mhs)
 		else
 		{
 		// Menampilkan nama,nim,ipk yang dicari
-		cout<<"\nMenampilkan data mahasiswa"<<endl<<endl;
+		cout<<"\nMenampilkan data Mahasiswa yang dicari"<<endl<<endl;
 		cout <<"Nama Mahasiswa: "<< posisinama<<endl;
 		cout << "NIM: "<<posisinim<<endl;	
-    	cout<<"IPK : "<<posisiipk<<endl;
+    	cout<<"IPK : "<<posisiipk<<endl<<endl;
+		back();
 		}
 	}
 	else
